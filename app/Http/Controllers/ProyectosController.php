@@ -15,9 +15,22 @@ class ProyectosController extends Controller
     public function getShow($id)
     {
         return view('proyectos.show')
-            ->with('proyectos', $this->arrayProyectos[$id])
+            ->with('proyecto', $this->arrayProyectos[$id])
             ->with('id', $id);
     }
+
+    public function getCreate()
+    {
+        return view('proyectos.create');
+    }
+
+    public function getEdit($id)
+    {
+        return view('proyectos.edit')
+            ->with('proyecto', $this->arrayProyectos[$id])
+            ->with('id', $id);
+    }
+
 
 
 
