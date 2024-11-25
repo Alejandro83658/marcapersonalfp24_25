@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class ControllersExerciseTest extends TestCase
+class ProyectoControllerTest extends TestCase
 {
     public function test_controladores(): void
     {
