@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Models\Estudiante;
 use Illuminate\Support\Facades\Route;
 
 
@@ -18,8 +19,10 @@ Route::get('perfil/{id?}', function($id = null) {
     return $id ? 'Visualizar el currículo de '. $id : 'Visualizar el currículo propio';
 })->where('id', '[0-9]*');
 
-
-
+Route::get('pruebaDB/{id?}', function ($id = null) {
+    $estudiante = Estudiante::where('votos', '>', 100)->firstOrFail();
+return $estudiante -> nombre;
+});
 
 
 include __DIR__.'/actividades.php';
