@@ -1,6 +1,9 @@
 @extends('layouts.master')
 
 @section('content')
+@php
+    $metadatos = unserialize($proyecto['metadatos']);
+@endphp
 
 <div class="row" style="margin-top:40px">
    <div class="offset-md-3 col-md-6">
@@ -16,24 +19,24 @@
 
 	            <div class="form-group">
 	               <label for="nombre">Nombre</label>
-	               <input type="text" name="nombre" id="nombre" class="form-control" value="{{ $proyecto['nombre'] }}">
+	               <input type="text" name="nombre" id="nombre" class="form-control" value="{{ $proyecto->nombre }}">
 	            </div>
 
 	            <div class="form-group">
 	               <label for="docente_id">Docente</label>
-	               <input type="number" name="docente_id" id="docente_id"  value="{{ $proyecto['docente_id'] }}">
+	               <input type="number" name="docente_id" id="docente_id"  value="{{ $proyecto->docente_id }}">
 	            </div>
 
 	            <div class="form-group">
 	               <label for="dominio">Dominio</label><br />
                     https://github.com/2DAW-CarlosIII/
-	               <input type="text" name="dominio" id="dominio" class="form-control" value="{{ $proyecto['dominio'] }}">
+	               <input type="text" name="dominio" id="dominio" class="form-control" value="{{ $proyecto->dominio }}">
 	            </div>
 
 	            <div class="form-group">
 	               <label for="metadatos">Metadatos</label>
 	               <textarea name="metadatos" id="metadatos" class="form-control" rows="3">
-@foreach ($proyecto['metadatos'] as $clave => $metadato)
+@foreach ($metadatos as $clave => $metadato)
 {{ $clave }}: {{ $metadato }}
 @endforeach
                     </textarea>
