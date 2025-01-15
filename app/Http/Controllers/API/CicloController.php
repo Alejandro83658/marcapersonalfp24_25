@@ -18,6 +18,7 @@ class CicloController extends Controller
             Ciclo::orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
             ->paginate($request->perPage)
         );
+
     }
 
     /**
@@ -60,9 +61,8 @@ class CicloController extends Controller
             $ciclo->delete();
             return response()->json(null, 204);
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Error: ' . $e->getMessage()
-            ], 400);
+            return response()->json ([ 'message' => 'Error: '.$e->getMessage() ], 400);
         }
+
     }
 }
