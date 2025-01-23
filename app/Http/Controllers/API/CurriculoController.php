@@ -9,16 +9,24 @@ use Illuminate\Http\Request;
 
 class CurriculoController extends Controller
 {
+    public $modelclass = Curriculo::class;
+public $registrosTotales = 0;
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        return CurriculoResource::collection(
-            Curriculo::orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
-            ->paginate($request->perPage)
-        );
-    }
+
+            $campos = ['apellidos', 'nombre', 'name', 'email'];
+            $query = Curriculo::query();
+            foreach($campos as $campo) {
+                $query->orWhere($campo, 'like', '%' . $request->q . '%');
+            }
+            return CurriculoResource::collection(
+                $query->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
+                ->paginate($request->perPage + 1));
+        }
 
     /**
      * Store a newly created resource in storage.

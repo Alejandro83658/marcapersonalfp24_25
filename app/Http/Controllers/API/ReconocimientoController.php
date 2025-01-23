@@ -9,16 +9,24 @@ use Illuminate\Http\Request;
 
 class ReconocimientoController extends Controller
 {
+    public $modelclass = Reconocimiento::class;
+public $registrosTotales = 0;
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        return ReconocimientoResource::collection(
-            Reconocimiento::orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
-            ->paginate($request->perPage)
-        );
-    }
+
+            $campos = ['apellidos', 'nombre', 'name', 'email'];
+            $query = Reconocimiento::query();
+            foreach($campos as $campo) {
+                $query->orWhere($campo, 'like', '%' . $request->q . '%');
+            }
+            return ReconocimientoResource::collection(
+                $query->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
+                ->paginate($request->perPage + 1));
+        }
 
     /**
      * Store a newly created resource in storage.

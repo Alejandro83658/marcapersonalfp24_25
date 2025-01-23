@@ -10,18 +10,23 @@ use Illuminate\Http\Request;
 class CicloController extends Controller
 {
     public $modelclass = Ciclo::class;
+public $registrosTotales = 0;
 
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        return CicloResource::collection(
-            Ciclo::orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
-            ->paginate($request->perPage)
-        );
-    }
 
+            $campos = ['apellidos', 'nombre', 'name', 'email'];
+            $query = Ciclo::query();
+            foreach($campos as $campo) {
+                $query->orWhere($campo, 'like', '%' . $request->q . '%');
+            }
+            return CicloResource::collection(
+                $query->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
+                ->paginate($request->perPage + 1));
+        }
     /**
      * Store a newly created resource in storage.
      */
