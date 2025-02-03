@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\ParticipanteProyecto;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\ParticipanteProyecto;
 
 class ParticipantesProyectosTableSeeder extends Seeder
 {
@@ -13,10 +13,7 @@ class ParticipantesProyectosTableSeeder extends Seeder
      */
     public function run(): void
     {
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        ParticipanteProyecto::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        DB::table('participantes_proyectos')->truncate();
 
         $combinaciones = [];
 
