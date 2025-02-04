@@ -4,8 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use function Laravel\Prompts\table;
-
 return new class extends Migration
 {
     /**
@@ -13,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('familias_profesionales', function (Blueprint $table) {
-            $table-> unsignedBigInteger('familia_id')->nullable();
+        Schema::table('ciclos', function (Blueprint $table) {
+            $table->unsignedBigInteger('familia_id')
+            ->after('nombre');
+            $table->foreign('familia_id')
+            ->references('id')->on('familias_profesionales')
+            ->onDelete('cascade');
         });
     }
 
@@ -23,7 +25,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('familias_profesionales', function (Blueprint $table) {
+        Schema::table('ciclos', function (Blueprint $table) {
+            $table->dropForeign(['familia_id']);
             $table->dropColumn('familia_id');
         });
     }
