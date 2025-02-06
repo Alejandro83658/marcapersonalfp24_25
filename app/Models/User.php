@@ -56,4 +56,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Curriculo::class);
     }
+    public function ciclos()
+    {
+        return $this->belongsToMany(Ciclo::class, 'users_ciclos', 'user_id', 'ciclo_id');
+    }
 }
